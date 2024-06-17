@@ -1,13 +1,14 @@
 import os
-from langchain.vectorstores import Chroma
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM 
 from transformers import pipeline
 import torch
-from langchain.llms import HuggingFacePipeline
-from langchain.embeddings import SentenceTransformerEmbeddings
+from langchain_community.embeddings import SentenceTransformerEmbeddings
 from langchain.chains import RetrievalQA
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
+from langchain_community.vectorstores import Chroma
+from langchain_community.llms import HuggingFacePipeline
+
 app=FastAPI()
 # Define the persist directory (make sure it exists)
 persist_directory = "persist_directory"
