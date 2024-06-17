@@ -10,7 +10,7 @@ from langchain.chains import RetrievalQA
 # Define the persist directory (make sure it exists)
 persist_directory = "persist_directory"
 os.makedirs(persist_directory, exist_ok=True)
-
+# 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
 # Initialize SentenceTransformerEmbeddings with acls
 #  pre-trained model
 embeddings = SentenceTransformerEmbeddings(model_name="multi-qa-mpnet-base-dot-v1")
