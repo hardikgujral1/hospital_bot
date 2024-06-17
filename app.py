@@ -6,13 +6,14 @@ import torch
 from langchain.llms import HuggingFacePipeline
 from langchain.embeddings import SentenceTransformerEmbeddings
 from langchain.chains import RetrievalQA
-
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
+app=FastAPI()
 # Define the persist directory (make sure it exists)
 persist_directory = "persist_directory"
 os.makedirs(persist_directory, exist_ok=True)
-# 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
-# Initialize SentenceTransformerEmbeddings with acls
-#  pre-trained model
+
+# Initialize SentenceTransformerEmbeddings with a pre-trained model
 embeddings = SentenceTransformerEmbeddings(model_name="multi-qa-mpnet-base-dot-v1")
 
 # Load the Chroma vector database
@@ -55,9 +56,11 @@ def chat_with_model(query):
     return response['result']
 
 # Prompt the user for a query and display the response
-while True:
-    input_query = input("Enter your query (or type 'exit' to quit): ")
-    if input_query.lower() == 'exit':
-        break
-    llm_response = chat_with_model(input_query)
+@app.get('/bot')
+def response(query:str):
+    # input_query = input("Enter your query (or type 'exit' to quit): ")
+    # if input_query.lower() == 'exit':
+    #     exit()
+    llm_response = chat_with_model( query)
     print("Response:", llm_response)
+    return JSONResponse(content={"response":llm_response})
